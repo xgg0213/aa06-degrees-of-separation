@@ -24,11 +24,30 @@ const adjList = {
 }
 
 function degreesOfSeparation(start, end) {
+  let queue = [[start]];
+  let visited = new Set([]);
+
+  while (queue.length) {
+    let currentPath = queue.shift();
+    let lastNode = currentPath[currentPath.length-1];
+
+    if (lastNode === end) {
+      return currentPath.length-1;
+    }
+
+    for (let neighbor of adjList[lastNode]) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push(currentPath.concat([neighbor]))
+      }
+    }
+  }
+  return null;
 }
 
-// console.log(degreesOfSeparation(1, 3)); // -> 2
-// console.log(degreesOfSeparation(5, 2)); // -> 1
-// console.log(degreesOfSeparation(6, 1)); // -> null
+console.log(degreesOfSeparation(1, 3)); // -> 2
+console.log(degreesOfSeparation(5, 2)); // -> 1
+console.log(degreesOfSeparation(6, 1)); // -> null
 
 
 /******************** DO NOT MODIFY ANY CODE BELOW THIS LINE *****************/
