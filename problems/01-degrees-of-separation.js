@@ -25,7 +25,7 @@ const adjList = {
 
 function degreesOfSeparation(start, end) {
   let queue = [[start]];
-  let visited = new Set([]);
+  let visited = new Set([start]); // need to start with the 'start' node, as you don't want to get into the situation with say [1,2,1]
 
   while (queue.length) {
     let currentPath = queue.shift();
